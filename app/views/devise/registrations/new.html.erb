@@ -1,0 +1,58 @@
+<h2>Sign up</h2>
+
+
+    <%= form_for(resource, as: resource_name, class: "form-inline", url: registration_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
+
+        <div class="form-group">
+          <span class="input-group-addon"><%= f.label :email %></span>
+          <%= f.email_field :email, autofocus: true, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password, class: "input-group-addon" %>
+          <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %>
+          <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password_confirmation, class: "input-group-addon" %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :username, class: "input-group-addon" %>
+          <%= f.text_field :username, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :avatar, class: "input-group-addon" %>
+          <%= f.file_field :avatar, class: "form-control" %>
+          <%= f.hidden_field :avatar_cache %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :first_name, class: "input-group-addon" %>
+          <%= f.text_field :first_name, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :last_name, class: "input-group-addon" %>
+          <%= f.text_field :last_name, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :bio, class: "input-group-addon" %>
+          <%= f.text_field :bio, class: "form-scontrol"%>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Sign up", class: "btn btn-primary" %>
+        </div>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+
+

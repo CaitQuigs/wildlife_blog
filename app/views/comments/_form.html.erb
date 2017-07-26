@@ -11,22 +11,21 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id, id: :comment_user_id %>
+  <div class="form-group">
+  <!-- Need to put commenting user's username -->
+    <%= form.hidden_field :user_id, value: current_user.id %>
   </div>
 
-  <div class="field">
-    <%= form.label :post_id %>
-    <%= form.number_field :post_id, id: :comment_post_id %>
+  <div class="form-group">
+    <%= form.hidden_field :post_id, value: @post.id %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :comment_entry %>
-    <%= form.text_area :comment_entry, id: :comment_comment_entry %>
+    <%= form.text_area :comment_entry, id: :comment_comment_entry, class: "form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Submit Comment", class: "btn btn-primary" %>
   </div>
 <% end %>
