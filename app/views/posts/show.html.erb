@@ -1,29 +1,50 @@
 <p id="notice"><%= notice %></p>
 
-<h1 class="blog-title"><%= @post.title %></h1>
-<h3 class="byline">by <%= @post.user.username %> <%= image_tag @post.user.avatar.thumb %></h3>
+<div class="container">
+  <div class="row">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= @post.title.html_safe %></h3>
+        </div>
+        <div class="panel-body">
+          <p> By <em><%= link_to @post.user.username, user_posts_path(name: @post.user.username) %> <%= image_tag @post.user.avatar.thumb %></em></p>
+          <p><em>Posted on <%= @post.created_at.strftime('%m/%d/%Y at %l:%M%P') %></em></p>
+          <br />
+          <%= image_tag @post.headline_photo.headline %>
+          <h5 class="caption"><%= @post.photo_caption %></h5>
+          <p class="photo-credit"><%= @post.photo_credit %></p>
+          <br />
+          <p class="blog-post"><%= @post.blog_entry.html_safe %></p>
+        </div>
+         	<% if current_user.id == @post.user_id %>
+          	<div class="panel-footer">
+            	<%= link_to 'Edit Post', edit_post_path(@post), class: "btn btn-warning" %>
+            	<%= link_to 'Delete Post', @post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+          	</div>
+        	<% end %>
+        </div>
+      </div>
 
-<%= image_tag @post.headline_photo.headline %>
-<h5 class="caption"><%= @post.photo_caption %></h5>
-<p class="photo-credit"><%= @post.photo_credit %></p>
-<br />
+	<div class="comments">
+	    <h2 class="comments">Comments</h2>
 
-<p class="blog-post">
-  <%= @post.blog_entry.html_safe %>
-</p>
+	      <% @post.comments.each do |comment| %>
+	        <div class="well">
+	          <div class="media">
+	            <div class="media-left">
+	              <%= image_tag comment.user.avatar.thumb, class: "media-object" %>
+	            </div>
+	            <div class="media-body">
+	              <div class="media-heading">
+	              <h3 class="media-heading"><%= link_to comment.user.username, user_posts_path(name: comment.user.username) %></h3>
+	              <p><em>posted on <%= comment.created_at.strftime('%m/%d/%Y at %l:%M%P') %></em></p>
+	              </div>
+	              <p><%= comment.comment_entry.html_safe %></p>
+	            </div>
+	          </div>
+	        </div>
+	      <% end %>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
-
-<div class="comments">
-<%= render 'comments/form', comment: @comment %>
-
-<h2 class="comments">Comments</h2>
-	<% @post.comments.each do |comment| %>
-	<div class="well">
-		<p><%= comment.user.username %> <%= image_tag comment.user.avatar.thumb %></p>
-		<p><%= comment.comment_entry.html_safe %></p>
-	</div>
-	<% end %>
+	      <%= render 'comments/form', comment: @comment %>
+	 </div>
 </div>
-

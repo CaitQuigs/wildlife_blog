@@ -4,6 +4,8 @@ class Post < ApplicationRecord
 
 	mount_uploader :headline_photo, HeadlinePhotoUploader
 
+	paginates_per 5
+
 	validates :title, presence: true, length: { minimum: 5 }
 	validates :blog_entry, presence: true
 end

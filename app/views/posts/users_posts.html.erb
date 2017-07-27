@@ -1,38 +1,36 @@
-<p id="notice"><%= notice %></p>
+<h1>All Posts by <%= @user.username %></h1>
 
-<div class="container">
+
+<% if @user.posts.nil? || @user.posts.blank? || @user.posts.empty? %>
+	<h3>You have no posts yet!<h3>
+	<%= link_to 'New Post', new_post_path, class: "btn btn-success" %>
+	<% else %>
+		<% @user.posts.each do |post| %>
+
+	<div class="container">
   <div class="row">
-    <% @posts.each do |post| %>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title"><%= post.title.html_safe %></h3>
         </div>
         <div class="panel-body">
-          <p> By <em><%= link_to post.user.username, user_posts_path(name: post.user.username) %> <%= image_tag post.user.avatar.thumb %></em> <em>posted on <%= post.created_at.strftime('%m/%d/%Y at %l:%M%P') %></em></p>
+          <p> By <em><%= post.user.username %> <%= image_tag post.user.avatar.thumb %></em></p>
+          <p><em>posted on <%= local_time(post.created_at, "%m/%d/%Y at %l:%M%P") %></em></p>
           <br />
           <%= image_tag post.headline_photo.headline %>
           <h5 class="caption"><%= post.photo_caption %></h5>
           <p class="photo-credit"><%= post.photo_credit %></p>
           <br />
           <p class="blog-post"><%= post.blog_entry.html_safe %></p>
-          <%= link_to 'See Comments', post, class: "btn btn-success" %>
         </div>
-        <% if current_user %>
-        <% if current_user.id == post.user_id %>
-          <div class="panel-footer">
+        <div class="panel-footer">
+          <% if current_user.id == post.user.id %>
             <%= link_to 'Edit Post', edit_post_path(post), class: "btn btn-warning" %>
             <%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
-          </div>
-        <% end %>
-        <% end %>
+          <% end %>
+        </div>
       </div>
-    <% end %>
   </div>
-
-  <br>
-  <%= paginate @posts %>
-  <br>
-
-  <%= link_to 'Write a New Post', new_post_path, class: "btn btn-success" %>
-
-</div>
+  </div>
+  <% end %>
+<% end %>

@@ -34,7 +34,7 @@ class HeadlinePhotoUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :headline do
-    process resize_to_fit: [600, 400]
+    process resize_to_fit: [800, 600]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
