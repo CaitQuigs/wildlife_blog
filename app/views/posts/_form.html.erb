@@ -25,6 +25,18 @@
     <%= form.text_field :user_id, value: current_user.id %>
   </div>
 
+  <div class="form-group">
+    <p>Add a headline photo: </p>
+    <%= form.file_field :headline_photo, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.text_field :photo_caption, id: :post_photo_caption, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.text_field :photo_credit, id: :post_photo_caption, class: "form-control" %>
+
   <div class="actions">
     <%= form.submit %>
   </div>

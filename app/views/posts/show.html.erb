@@ -3,6 +3,11 @@
 <h1 class="blog-title"><%= @post.title %></h1>
 <h3 class="byline">by <%= @post.user.username %> <%= image_tag @post.user.avatar.thumb %></h3>
 
+<%= image_tag @post.headline_photo.headline %>
+<h5 class="caption"><%= @post.photo_caption %></h5>
+<p class="photo-credit"><%= @post.photo_credit %></p>
+<br />
+
 <p class="blog-post">
   <%= @post.blog_entry.html_safe %>
 </p>
@@ -16,7 +21,7 @@
 <h2 class="comments">Comments</h2>
 	<% @post.comments.each do |comment| %>
 	<div class="well">
-		<p><%= comment.user.username %><%= image_tag @comment.user.avatar.thumb %></p>
+		<p><%= comment.user.username %> <%= image_tag comment.user.avatar.thumb %></p>
 		<p><%= comment.comment_entry.html_safe %></p>
 	</div>
 	<% end %>
